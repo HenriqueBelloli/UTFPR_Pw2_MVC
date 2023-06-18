@@ -1,0 +1,21 @@
+<h1> Listar Usuários </h1>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Login </th>
+            <th scope="col"> Senha</th>
+            <th scope="col"> Pergunta Secreta</th>
+            <th scope="col"> Resposta Secreta</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each usuarios}}
+    <tr>
+        <th scope="row">{{login}}</th>
+        <td>{{senha}}</td>
+        <td>{{pergunta_secreta}}</td>
+        <td>{{resposta_pergunta}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>

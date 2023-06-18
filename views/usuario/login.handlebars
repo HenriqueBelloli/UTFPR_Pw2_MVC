@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head> </head>
+
+<body>
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label for="campoLogin">Login</label>
+            <input type="text" class="form-control" id="campoLogin" name="login">
+        </div>
+        <div class="form-group">
+            <label for="campoSenha">Senha</label>
+            <input type="password" class="form-control" id="campoSenha" name="senha">
+        </div>
+        <button type="submit" class="btn btn-dark">Entrar</button>
+    </form>
+    <br>
+    <script> function cadastrar() { window.location.href = "/usuarioCreate/"}</script>
+    <button onclick=cadastrar()  class="btn btn-dark"> Cadastrar </button>
+    <script> function recuperarSenha() { window.location.href = "recuperarSenha/" + document.getElementById("campoLogin").value }</script>
+    <button onclick=recuperarSenha() class="btn btn-dark"> Recupear Senha </button>
+</body>
+
+</html>
