@@ -1,43 +1,47 @@
 const express = require('express');
 const controllerUsuario = require('../controllers/controllerUsuario');
-const controllerReceita = require('../controllers/controllerReceita');
-const multer = require('multer');
+const controllerApresentacao = require('../controllers/controllerApresentacao');
+
 const route = express.Router();
 
 module.exports = route;
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "public/uploads/")
-    },
-    filename: (req, file, cb) => {
-      req.imageName = req.body.nome+'.png'
-      cb(null,  req.imageName)
-    },
-  })
-const upload = multer({storage})
-
-route.get("/home",function(req,res){
-    res.render('home');
+//Home
+route.get("/home", function (req, res) {
+  if (req.session.tipousuario == 0)
+    return res.render('home', { layout: 'mainAdm.handlebars' });
+  else if (req.session.tipousuario == 2)
+    return res.render('home', { layout: 'mainCandidato.handlebars' });
+  else
+    return res.render('home', { layout: 'main.handlebars' });
 });
+
 route.get("/logout", controllerUsuario.getLogout);
 
-//Controller Usuario
-//Usuario - Login e Recuperação de Senha
+//Usuario
 route.get("/", controllerUsuario.getLogin);
 route.post("/login", controllerUsuario.postLogin);
-route.get("/recuperarSenha/:login", controllerUsuario.getRecuperarSenha);
-route.post("/recuperarSenha", controllerUsuario.postRecuperarSenha);
-//Usuario - CRUD
-route.get("/usuarioCreate", controllerUsuario.getCreate);
-route.post("/usuarioCreate", controllerUsuario.postCreate);
-route.get("/usuarioList", controllerUsuario.getList);
+route.get("/logout", controllerUsuario.getLogout);
 
-//Controller Receita
-//Receita-CRUD
-route.get("/receitaCreate", controllerReceita.getCreate);
-route.post("/receitaCreate",upload.single('imagem'),controllerReceita.postCreate);
-route.get("/receitaList", controllerReceita.getList);
-route.get("/receitaEdit/:id", controllerReceita.getEdit);
-route.post("/receitaEdit",upload.single('imagem'),controllerReceita.postEdit);
-route.get("/receitaDelete/:id", controllerReceita.getDelete);
+route.get("/usuarioCreate", controllerUsuario.getUsuarioCreate);
+route.post("/usuarioCadastrar", controllerUsuario.postUsuarioCreate);
+route.get("/usuarioList", controllerUsuario.getUsuarioList);
+route.get("/usuarioEdit/:id", controllerUsuario.getUsuarioEdit);
+route.post("/usuarioEdit", controllerUsuario.postUsuarioEdit);
+route.get("/usuarioDelete/:id", controllerUsuario.getUsuarioDelete);
+
+route.get("/usuarioCandidatar", controllerUsuario.getUsuarioCandidatar);
+
+//Apresentação
+route.get("/apresentacaoCreate", controllerApresentacao.getApresentacaoCreate);
+route.post("/apresentacaoCadastrar", controllerApresentacao.postApresentacaoCreate);
+route.get("/apresentacaoList", controllerApresentacao.getApresentacaoList);
+route.get("/apresentacaoEdit/:id", controllerApresentacao.getApresentacaoEdit);
+route.post("/apresentacaoEdit", controllerApresentacao.postApresentacaoEdit);
+route.get("/apresentacaoDelete/:id", controllerApresentacao.getApresentacaoDelete);
+
+//Votação
+route.get("/votacaoAbrir", controllerUsuario.getUsuarioCreate);
+route.get("/votacaoResultado", controllerUsuario.getUsuarioCreate);
+route.get("/votarList", controllerUsuario.getUsuarioCreate);
+route.get("/votar/:id", controllerUsuario.getUsuarioCreate);

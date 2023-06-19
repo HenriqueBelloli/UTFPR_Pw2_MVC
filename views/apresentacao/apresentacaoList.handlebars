@@ -1,0 +1,28 @@
+<h3>Apresentações</h3><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"> IdApresentacao </th>
+            <th scope="col"> Apresentador </th>
+            <th scope="col"> Música </th>
+            <th scope="col" colspan="4"> Participantes </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each apresentacoes}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{apresentador}}</td>
+            <td>{{musica}}</td>
+            <td>{{participante2}}</td>
+            <td>{{participante3}}</td>
+            <td>{{participante4}}</td>
+            <td>{{participante5}}</td>
+            <td><a href="apresentacaoEdit/{{id}}"><button class="btn btn-dark">Editar</button></a></td>
+            <td><a href="apresentacaoDelete/{{id}}"><button class="btn btn-dark">Eliminar</button></a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

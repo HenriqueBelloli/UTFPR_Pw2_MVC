@@ -1,0 +1,14 @@
+<h3>Editar dados do usuário</h3><br>
+<form action="/usuarioEdit" method="POST">
+    <div class="form-group" id="form-edit">
+        <input type="hidden" name="id" value="{{id}}">
+        Nome<br><input type="text" name="nome" placeholder="Nome" class="textField" id="nome" value="{{nome}}">
+        <br><br>
+        Matricula<br><input type="text" name="matricula" placeholder="Número de matricula na UTFPR" class="textField" id="matricula" value="{{matricula}}">
+        <br><br>
+        Senha<br><input type="password" name="senha" placeholder="Senha" class="textField" id="senha" value="{{senha}}">
+        <br><br>
+    <div>
+    <button type="submit" class="btn btn-dark mb-2">Salvar</button>
+    <a href="/usuarioList"><button type="button" class="btn btn-secondary mb-2">Cancelar</button></a>
+</form>

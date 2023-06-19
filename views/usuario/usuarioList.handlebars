@@ -1,21 +1,25 @@
-<h1> Listar Usuários </h1>
+<h3>Todos os Usuários</h3><br>
 <table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col"> Login </th>
-            <th scope="col"> Senha</th>
-            <th scope="col"> Pergunta Secreta</th>
-            <th scope="col"> Resposta Secreta</th>
-        </tr>
-    </thead>
-    <tbody>
+<thead  class="thead-dark">
+    <tr>
+        <th scope="col"> IdUsuario </th>
+        <th scope="col"> Nome </th>
+        <th scope="col"> Matricula </th>
+        <th scope="col"> Tipo do Usuario </th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+</thead>
+<tbody>
     {{#each usuarios}}
     <tr>
-        <th scope="row">{{login}}</th>
-        <td>{{senha}}</td>
-        <td>{{pergunta_secreta}}</td>
-        <td>{{resposta_pergunta}}</td>
+        <td>{{id}}</td>
+        <td>{{nome}}</td>
+        <td>{{matricula}}</td>
+        <td>{{tipousuario}}</td>
+        <td><a href="usuarioEdit/{{id}}"><button class="btn btn-dark">Editar</button></a></td>
+        <td><a href="usuarioDelete/{{id}}"><button class="btn btn-dark">Eliminar</button></a></td>
     </tr>
     {{/each}}
-    </tbody>
+</tbody>
 </table>

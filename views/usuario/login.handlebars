@@ -1,25 +1,11 @@
-<!DOCTYPE html>
-<html>
-
-<head> </head>
-
-<body>
-    <form action="/login" method="post">
-        <div class="form-group">
-            <label for="campoLogin">Login</label>
-            <input type="text" class="form-control" id="campoLogin" name="login">
-        </div>
-        <div class="form-group">
-            <label for="campoSenha">Senha</label>
-            <input type="password" class="form-control" id="campoSenha" name="senha">
-        </div>
-        <button type="submit" class="btn btn-dark">Entrar</button>
-    </form>
+<h3>Login</h3><br>
+<form action="/login" method="post">
+    <input type="text" name="matricula" id="matricula" class="textField" placeholder="Matricula">
     <br>
-    <script> function cadastrar() { window.location.href = "/usuarioCreate/"}</script>
-    <button onclick=cadastrar()  class="btn btn-dark"> Cadastrar </button>
-    <script> function recuperarSenha() { window.location.href = "recuperarSenha/" + document.getElementById("campoLogin").value }</script>
-    <button onclick=recuperarSenha() class="btn btn-dark"> Recupear Senha </button>
-</body>
-
-</html>
+    <input type="password" name="senha" class="textField" placeholder="Senha">
+    <br><br>
+    <button type="submit" class="btn btn-primary mb-2 botao">Entrar</button>
+    <button type="button" class="btn btn-secondary botao" onclick=cadastrarUsuario()> Cadastrar</button>
+</form>
+<br>
+<script>function cadastrarUsuario() {window.location.href = "usuarioCreate"}</script>

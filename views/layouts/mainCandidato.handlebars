@@ -9,20 +9,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
-        .textField{
+        .textField {
             width: 350px;
             margin: 4px;
         }
-        .botao{
+
+        .botao {
             width: 200px;
             margin: 10px;
             margin-top: 40px;
         }
-        .placar{
+
+        .placar {
             width: 55px;
             text-align: center;
         }
-        .tabela{
+
+        .tabela {
             width: 60%;
             text-align: center;
         }
@@ -42,6 +45,17 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Apresentações
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/apresentacaoList">Listar</a>
+                        <a class="dropdown-item" href="/apresentacaoCreate">Cadastrar</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Votação
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -52,9 +66,6 @@
             </ul>
             </form>
         </div>
-        <a href="/usuarioCandidatar" class="nav-link"> <!--</form> class="form-inline"> -->
-            <button class="btn btn-outline-secondary">Candidatar</button>
-        </a>
         <a href="/logout" class="nav-link"> <!--</form> class="form-inline"> -->
             <button class="btn btn-outline-secondary">Logout</button>
         </a>

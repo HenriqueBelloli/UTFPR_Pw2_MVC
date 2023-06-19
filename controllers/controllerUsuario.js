@@ -1,67 +1,113 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db_sequelize');
-const path = require('path');
-
-db.sequelize.sync({force: true}).then(() => {
-    console.log('{ force: true }');
-});
 
 module.exports = {
     async getLogin(req, res) {
         res.render('usuario/login', { layout: 'noMenu.handlebars' });
     },
-    async getLogout(req, res) {
-        req.session.destroy();
-        res.redirect('/');
-    },
+
     async postLogin(req, res) {
-        var user = {login: req.body.login }
-        db.Usuario.findAll({ where: { login: req.body.login, senha: req.body.senha } }
+        console.log("req.body.matricula: " + req.body.matricula);
+
+        db.Usuario.findAll({ where: { matricula: req.body.matricula, senha: req.body.senha } }
         ).then(usuarios => {
             if (usuarios.length > 0) {
-                req.session.login = req.body.login;
+                var tipousuario = usuarios[0].tipousuario;
+                req.session.matricula = req.body.matricula;
+                req.session.tipousuario = tipousuario;
+                req.session.idUsuario = usuarios[0].id;
+                console.log("LOGIN COM O ID " + usuarios[0].id);
                 res.redirect('/home');
             }
+            else {
+                res.redirect('/');
+            }
+        });
+    },
+
+    async getLogout(req, res) {
+        req.session.matricula = undefined;
+        req.session.tipousuario = undefined;
+        res.redirect("/");
+    },
+
+    async getUsuarioCreate(req, res) {
+        if (req.session.tipousuario != undefined)
+            if (req.session.tipousuario == 0)
+                return res.render('usuario/cadastroAdm', { layout: 'mainAdm.handlebars' });
             else
-                res.redirect('/');
-        });
+                return res.render('usuario/cadastro', { layout: 'main.handlebars' });
+
+        return res.render('usuario/cadastro', { layout: 'noMenu.handlebars' });
     },
-    async getRecuperarSenha(req, res) {
-        db.Usuario.findAll({ where: { login: req.params.login } }).then(usuarios => {
+
+    async postUsuarioCreate(req, res) {
+        db.Usuario.findAll({ where: { matricula: req.matricula } }
+        ).then(usuarios => {
             if (usuarios.length > 0) {
-                res.render('usuario/recuperarSenha', { layout: 'noMenu.handlebars', login: req.params.login, pergunta: usuarios[0].pergunta_secreta });
+                console.error("Erro: Cadastro já existente.");
+                return res.redirect('/usuarioCreate');
             }
             else {
-                res.redirect('/');
+                console.log("Criando novo usuário...");
+                db.Usuario.create({
+                    matricula: req.matricula,
+                    nome: req.nome,
+                    senha: req.senha,
+                    tipousuario: req.tipousuario
+                });
+
+                console.log("Cadastro criado com sucesso!");
+
+                return res.redirect("/usuarioList");
             }
         });
     },
-    async postRecuperarSenha(req, res) {
-        db.Usuario.findAll({ where: { login: req.body.login, resposta_pergunta: req.body.resposta } }).then(usuarios => {
-            if (usuarios.length > 0) {
-                res.render('usuario/senhaRecuperada', { layout: 'noMenu.handlebars', senha: usuarios[0].senha });
+
+    async getUsuarioList(req, res) {
+        db.Usuario.findAll({ where: { tipousuario: [1, 2] } }).then(usuarios => {
+            for (var i = 0; i < usuarios.length; i++) {
+                switch (usuarios[i].tipousuario) {
+                    case 0:
+                        usuarios[i].tipousuario = "Administrador";
+                        break;
+                    case 1:
+                        usuarios[i].tipousuario = "Votante";
+                        break;
+                    case 2:
+                        usuarios[i].tipousuario = "Candidato";
+                        break;
+                }
             }
-            else {
-                res.redirect('/');
-            }
+            res.render('usuario/usuarioList', { layout: 'mainAdm.handlebars', usuarios: usuarios.map(usuarios => usuarios.toJSON()) });
         });
     },
-    async getCreate(req, res) {
-        res.render('usuario/usuarioCreate', { layout: 'noMenu.handlebars' });
-    },
-    async postCreate(req, res) {
-        db.Usuario.create({
-            login: req.body.login,
-            senha: req.body.senha,
-            tipo: req.body.tipo,
-            pergunta_secreta: req.body.pergunta,
-            resposta_pergunta: req.body.resposta,
+
+    async getUsuarioEdit(req, res) {
+        await db.Usuario.findByPk(req.params.id).then(usuario => {
+            res.render('usuario/usuarioEdit', { layout: 'mainAdm.handlebars', id: usuario.id, matricula: usuario.matricula, nome: usuario.nome, senha: usuario.senha });
         });
+    },
+
+    async postUsuarioEdit(req, res) {
+        const { matricula, nome, senha } = req.body;
+        await db.Usuario.update({ matricula, nome, senha }, { where: { id: req.body.id } });
+        res.redirect('/usuarioList');
+    },
+
+    async getUsuarioDelete(req, res) {
+        await db.Votacao.destroy({ where: { usuarioId: req.params.id } });
+        await db.Apresentacao.destroy({ where: { usuarioId: req.params.id } });
+        await db.Usuario.destroy({ where: { id: req.params.id } });
+        console.log("Usuário eliminado");
+        res.redirect('/usuarioList');
+    },
+
+    async getUsuarioCandidatar(req, res) {
+        const usuarioId = req.session.idUsuario;
+        await db.Usuario.update({ tipousuario: 2 }, { where: { id: usuarioId } });
+        req.session.tipousuario = 2;
+        console.log("Usuário alterado para candidato");
         res.redirect('/home');
-    },
-    async getList(req, res) {
-        db.Usuario.findAll().then(usuarios => {
-            res.render('usuario/usuarioList', { usuarios: usuarios.map(usuarios => usuarios.toJSON()) });
-        });
     }
-}   
+}

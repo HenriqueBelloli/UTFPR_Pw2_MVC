@@ -1,7 +1,7 @@
 
 module.exports = (sequelize, Sequelize) => {
     const Apresentacao = sequelize.define('apresentacao', {
-        idApresentacao: {
+        id: {
             type: Sequelize.INTEGER,
             autoIncrement: true, allowNull: false, primaryKey: true
         },
@@ -20,8 +20,8 @@ module.exports = (sequelize, Sequelize) => {
         participante5: {
             type: Sequelize.STRING, allowNull: true
         },
-        participante6: {
-            type: Sequelize.STRING, allowNull: true
+        votacaoAberta:{
+            type: Sequelize.BOOLEAN, default : false
         }
     });
 
