@@ -1,0 +1,15 @@
+<h3>Votação de Apresentação</h3><br>
+<form action="/votarEdit" method="POST">
+
+    <div class="form-group" id="form-edit">
+        <input type="hidden" name="apresentacaoId" id="apresentacaoId" value="{{id}}">
+        Música <br><input type="text" name="musica" class="textField" id="musica" value="{{musica}}" disabled>
+        <br>
+        Nota <br><input type="number" min="1" max="5" placeholder="Informe a nota de 1 a 5" name="nota" class="textField" id="nota" value="{{nota}}">
+
+        <br><br>
+    <div>
+
+    <button type="submit" class="btn btn-dark mb-2">Salvar</button>
+    <a href="/votarList"><button type="button" class="btn btn-secondary mb-2">Cancelar</button></a>
+</form>

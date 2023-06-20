@@ -2,7 +2,7 @@
 <form action="/apresentacaoEdit" method="POST">
     <div class="form-group" id="form-edit">
         <input type="hidden" name="id" value="{{id}}">
-        Música <br><input type="text" name="musica" placeholder="Nome da música desejada" class="textField" id="musica" value="{{id}}">
+        Música <br><input type="text" name="musica" placeholder="Nome da música desejada" class="textField" id="musica" value="{{musica}}">
         <br>
         Participante 2 <br><input type="text" name="participante2" placeholder="Nome do integrante do grupo" class="textField" id="participante2" value="{{participante2}}">
         <br>
@@ -15,5 +15,5 @@
         <br><br>
     <div>
     <button type="submit" class="btn btn-dark mb-2">Salvar</button>
-    <a href="/usuarioList"><button type="button" class="btn btn-secondary mb-2">Cancelar</button></a>
+    <a href="/apresentacaoList"><button type="button" class="btn btn-secondary mb-2">Cancelar</button></a>
 </form>

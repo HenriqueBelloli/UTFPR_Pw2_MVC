@@ -1,6 +1,7 @@
 const express = require('express');
 const controllerUsuario = require('../controllers/controllerUsuario');
 const controllerApresentacao = require('../controllers/controllerApresentacao');
+const controllerVotacao = require('../controllers/controllerVotacao');
 
 const route = express.Router();
 
@@ -41,7 +42,9 @@ route.post("/apresentacaoEdit", controllerApresentacao.postApresentacaoEdit);
 route.get("/apresentacaoDelete/:id", controllerApresentacao.getApresentacaoDelete);
 
 //Votação
-route.get("/votacaoAbrir", controllerUsuario.getUsuarioCreate);
-route.get("/votacaoResultado", controllerUsuario.getUsuarioCreate);
-route.get("/votarList", controllerUsuario.getUsuarioCreate);
-route.get("/votar/:id", controllerUsuario.getUsuarioCreate);
+route.get("/votacaoStatus", controllerVotacao.getVotacaoStatusList);
+route.get("/votacaoStatusEdit/:id", controllerVotacao.getvotacaoStatusEdit);
+route.get("/votacaoResultado", controllerVotacao.getApresentacaoResultado);
+route.get("/votarList", controllerVotacao.getVotacaoList);
+route.get("/votar/:id", controllerVotacao.getVotacaoEdit);
+route.post("/votarEdit", controllerVotacao.postVotacaoEdit);

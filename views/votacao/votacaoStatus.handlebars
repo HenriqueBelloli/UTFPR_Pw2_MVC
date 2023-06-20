@@ -1,0 +1,27 @@
+<h3>Status de Apresentações</h3><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"> IdApresentacao </th>
+            <th scope="col"> Música </th>
+            <th scope="col" colspan="5"> Participantes </th>
+            <th scope="col"> Votação </th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each apresentacoes}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{musica}}</td>
+            <td>{{apresentador}}</td>
+            <td>{{participante2}}</td>
+            <td>{{participante3}}</td>
+            <td>{{participante4}}</td>
+            <td>{{participante5}}</td>
+            <td>{{votacaostatus}}</td>
+            <td><a href="votacaoStatusEdit/{{id}}"><button class="btn btn-dark">Alterar status</button></a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

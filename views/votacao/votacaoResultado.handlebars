@@ -1,0 +1,21 @@
+<h3>Resultado das Votações</h3><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"> IdApresentacao </th>
+            <th scope="col"> Música </th>
+            <th scope="col"> Candidato </th>
+            <th scope="col"> Nota Média </th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each apresentacoes}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{musica}}</td>
+            <td>{{apresentador}}</td>
+            <td>{{notamedia}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

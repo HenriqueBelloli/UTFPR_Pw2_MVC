@@ -1,0 +1,25 @@
+<h3>Votações em aberto</h3><br>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Música </th>
+            <th scope="col" colspan="5"> Participantes </th>
+            <th scope="col" colspan="5"> Sua Nota </th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each apresentacoes}}
+        <tr>
+            <td>{{musica}}</td>
+            <td>{{apresentador}}</td>
+            <td>{{participante2}}</td>
+            <td>{{participante3}}</td>
+            <td>{{participante4}}</td>
+            <td>{{participante5}}</td>
+            <td>{{nota}}</td>
+            <td><a href="votar/{{id}}"><button class="btn btn-dark">Votar</button></a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
